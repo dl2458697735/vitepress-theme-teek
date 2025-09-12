@@ -95,7 +95,9 @@ export const useSwitchData = (dataList: MaybeRefOrGetter<any[]>, options: UseSwi
 
     if (dataListConst.length < 1) return;
     if (dataListConst.length === 1) {
+      startTimer();
       data.value = dataListConst[0];
+      onAfterUpdate?.(data.value);
       return;
     }
 
@@ -111,7 +113,7 @@ export const useSwitchData = (dataList: MaybeRefOrGetter<any[]>, options: UseSwi
 
     onBeforeUpdate?.(newValue);
 
-    if (onUpdate) return onUpdate(data, newValue);
+    onUpdate?.(data, newValue);
 
     data.value = newValue;
     onAfterUpdate?.(newValue);
